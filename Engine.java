@@ -5,7 +5,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Engine extends BasicGame {
-
+    private static final String TITLE = "Somber Smosh Brethren";
+    private static final int WIDTH = 640;
+    private static final int HEIGHT = 480;
     public Engine(String title) {
         super(title);
     }
@@ -13,13 +15,13 @@ public class Engine extends BasicGame {
     public static void main(String[] args) {
 
         try {
-            AppGameContainer game = new AppGameContainer(new Engine("Game Title"));
+            AppGameContainer game = new AppGameContainer(new Engine(TITLE));
             game.setMaximumLogicUpdateInterval(60);
-            game.setDisplayMode(640, 480, false);
+            game.setDisplayMode(WIDTH, HEIGHT, false);
             game.setTargetFrameRate(60);
             game.setAlwaysRender(true);
             game.setVSync(true);
-            game.setShowFPS(false);
+            game.setShowFPS(true);
             game.start();
         } catch (SlickException e) {
             e.printStackTrace();
