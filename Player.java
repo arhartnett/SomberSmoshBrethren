@@ -4,15 +4,21 @@ import org.newdawn.slick.SlickException;
 import java.awt.*;
 
 public class Player extends Entity{
+    public static final double GRAVITY = 2.0;
     public Image sprite;
     public Rectangle hitbox;
-    private double speed;
+    public double speed;
+    public double jumpSpeed;
+    public boolean isJumping;
+    public boolean isFalling;
     public Player(int x1, int y1, String imgName) throws SlickException
     {
         x = x1;
         y = y1;
         img = imgName;
-        speed = 5;
+        speed = 5.0;
+        jumpSpeed = 20.0;
+        isJumping = false; isFalling = false;
         
         sprite = new Image(img);
         w = sprite.getWidth();
@@ -20,8 +26,31 @@ public class Player extends Entity{
         hitbox = new Rectangle(x, y, w, h);
     }
 
+    private void gravCalc() {
+        if (this.isFalling || this.isJumping) {
+            this.yv += GRAVITY;
+        }
+        if (isJumping && this.yv <= 0) {
+            this.isJumping = false;
+            this.isFalling = true;
+        }
+        // basic floor
+        if (this.y > 200) {
+            this.y = 200;
+            this.yv = 0.0;
+            this.isJumping = false;
+            this.isFalling = false;
+        }
+    }
+    public void jump() {
+        if (!this.isFalling) {
+            this.yv -= this.jumpSpeed;
+            this.isJumping = true;
+        }
+    }
     // also updates hitbox position
     public void movePlayer() {
+        this.gravCalc();
         this.hitbox.x += this.xv;
         this.hitbox.y += this.yv;
         this.move();
@@ -55,9 +84,9 @@ public class Player extends Entity{
      */
     public void adjustTo(Player that) {
         int compare = this.checkHit(that);
-        System.out.println(compare);
+        if (compare > 0) System.out.println("collision");
         if (compare == 0) return;
-        if (compare == 1) { // left
+        else if (compare == 1) { // left
             this.x = that.x + that.w;
             this.xv = 0;
             that.xv = 0;
