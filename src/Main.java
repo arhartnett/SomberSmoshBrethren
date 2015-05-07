@@ -9,6 +9,7 @@ public class Main extends StateBasedGame{
    public static final int play = 0;
    public static final int xSize = 800;
    public static final int ySize = 600;
+   public static final int frameRate = 60;
    
    public Main(String gamename){
       super(gamename);
@@ -25,7 +26,7 @@ public class Main extends StateBasedGame{
       try{
          appgc = new AppGameContainer(new Main(gamename));
          appgc.setDisplayMode(xSize, ySize, false);
-         appgc.setTargetFrameRate(60);
+         appgc.setTargetFrameRate(frameRate);
          appgc.start();
       }catch(SlickException e){
          e.printStackTrace();
