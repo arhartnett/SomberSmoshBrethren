@@ -29,9 +29,10 @@ public class Play extends BasicGameState {
             throws SlickException {
         p1.movePlayer();
         p2.movePlayer();
-        if (p1.checkHit(p2) == 1) {
+        if (p1.checkHit(p2) > 0) {
             p1.xv = 0;
             p2.xv = 0;
+            System.out.println(p1.checkHit(p2));
         }
     }
  

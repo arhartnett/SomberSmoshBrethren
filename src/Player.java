@@ -26,12 +26,23 @@ public class Player extends Entity{
         this.hitbox.y += this.yv;
         this.move();
     }
-
+    /*
+      * returns 1 if other player hits from left, 2 if from right, 3 if from
+      * top, 4 if from the bottom. Vertical/ horizontal distinction is based
+      * on which has the greater net velocity.
+     */
     public int checkHit(Player that) {
         if (this.hitbox.intersects(that.hitbox)) {
-            return 1;
+            if ((Math.abs(this.xv) + Math.abs(that.xv)) >
+                    (Math.abs(this.yv) + Math.abs(that.yv))) { // if horizontal
+                if (this.x > that.x) return 1;
+                else                 return 2;
+            }
+            else {
+                if (this.y > that.y) return 3;
+                else                 return 4;
+            }
         }
-        // TODO: more int options for what side the collision occurs on
         else return 0;
     }
     
