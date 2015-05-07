@@ -1,3 +1,5 @@
+package src;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
