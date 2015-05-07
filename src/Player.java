@@ -33,6 +33,10 @@ public class Player extends Entity{
      */
     public int checkHit(Player that) {
         if (this.hitbox.intersects(that.hitbox)) {
+            if (Math.abs(this.xv) + Math.abs(that.xv) +
+                    Math.abs(this.yv) + Math.abs(that.yv) == 0) {
+                return 0;
+            }
             if ((Math.abs(this.xv) + Math.abs(that.xv)) >
                     (Math.abs(this.yv) + Math.abs(that.yv))) { // if horizontal
                 if (this.x > that.x) return 1;
@@ -44,6 +48,35 @@ public class Player extends Entity{
             }
         }
         else return 0;
+    }
+
+    /*
+    uses the checkHit, but also adjusts the position to avoid overlap.
+     */
+    public void adjustTo(Player that) {
+        int compare = this.checkHit(that);
+        System.out.println(compare);
+        if (compare == 0) return;
+        if (compare == 1) { // left
+            this.x = that.x + that.w;
+            this.xv = 0;
+            that.xv = 0;
+        }
+        else if (compare == 2) { //right
+            this.x = that.x - this.w;
+            this.xv = 0;
+            that.xv = 0;
+        }
+        else if (compare == 3) { // down
+            this.y = that.y + that.h;
+            this.yv = 0;
+            that.yv = 0;
+        }
+        else if (compare == 4) { // up
+            this.y = that.y - this.h;
+            this.yv = 0;
+            that.yv = 0;
+        }
     }
     
     public void drawThis()

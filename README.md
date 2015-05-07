@@ -1,3 +1,3 @@
 # SomberSmoshBrethren
-This is the readme ;)
-Another change.
+This game is just like Super Smash Bros only a million times better.
+You just wait.
