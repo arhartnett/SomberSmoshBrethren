@@ -1,5 +1,3 @@
-package src;
-
 public class Entity {
     public int x;
     public int y;

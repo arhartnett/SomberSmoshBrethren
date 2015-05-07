@@ -1,19 +1,28 @@
-package src;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.command.BasicCommand;
+import org.newdawn.slick.command.Command;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
-import org.newdawn.slick.*;
-import org.newdawn.slick.state.*;
- 
 public class Play extends BasicGameState {
     public Player p1;
     public Player p2;
+    /** The command for attack */
+    private Command attack = new BasicCommand("attack");
+    /** The command for jump */
+    private Command jump = new BasicCommand("jump");
+    /** The command for jump */
+    private Command run = new BasicCommand("run");
     public Play() {
  
     }
  
     public void init(GameContainer gc, StateBasedGame sbg)
             throws SlickException {
-        p1 = new Player(20, 100, "src/red.png");
-        p2 = new Player(780, 100, "src/blue.png");
+        p1 = new Player(20, 100, "img/red.png");
+        p2 = new Player(780, 100, "img/blue.png");
         p1.xv = 5;
         p2.xv = -4;
     }

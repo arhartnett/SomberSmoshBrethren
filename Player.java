@@ -1,5 +1,3 @@
-package src;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -8,11 +6,13 @@ import java.awt.*;
 public class Player extends Entity{
     public Image sprite;
     public Rectangle hitbox;
+    private double speed;
     public Player(int x1, int y1, String imgName) throws SlickException
     {
         x = x1;
         y = y1;
         img = imgName;
+        speed = 5;
         
         sprite = new Image(img);
         w = sprite.getWidth();
