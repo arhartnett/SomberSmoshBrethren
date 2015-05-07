@@ -16,8 +16,14 @@ public class Play extends BasicGameState {
  
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
             throws SlickException {
-            Player test = new Player(20, 20, "src/lena512.bmp");
+        Player test = new Player(20, 20, "src/lena512.bmp");
+        test.drawThis();
+        test.xv = 1;
+        test.yv = -1;
+        while (test.x < 60) {
+            test.move();
             test.drawThis();
+        }
  
     }
  

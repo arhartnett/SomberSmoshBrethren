@@ -17,7 +17,12 @@ public class Entity {
     public int getY() {
         return y;
     }
+
+    public void move() {
+        this.x += this.xv;
+        this.y += this.yv;
+    }
     public String toString() {
-     return (x + ", " + y);
+     return ("(" + x + ", " + y + ")");
     }
 }
