@@ -14,8 +14,8 @@ public class Play extends BasicGameState {
  
     public void init(GameContainer gc, StateBasedGame sbg)
             throws SlickException {
-        p1 = new Player(600, 200, "img/red.png");
-        p2 = new Player(180, 200, "img/blue.png");
+        p1 = new Player(600, 200, "img/char1.png");
+        p2 = new Player(180, 200, "img/char2.png");
     }
  
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
