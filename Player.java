@@ -12,7 +12,7 @@ public class Player extends Entity{
     public boolean isJumping;
     public boolean isFalling;
     public double oldTime = System.currentTimeMillis();
-    public Player(int x1, int y1, String imgName) throws SlickException
+    public Player(int x1, int y1, int width, int height, String imgName) throws SlickException
     {
         x = x1;
         y = y1;
@@ -22,9 +22,9 @@ public class Player extends Entity{
         isJumping = false; isFalling = false;
         
         sprite = new Image(img);
-        w = sprite.getWidth();
-        h = sprite.getHeight();
-        hitbox = new Rectangle(x, y, w, h);
+        w = width;
+        h = height;
+        hitbox = new Rectangle((x + (w/2)), (y + (y-h)), w, h);
     }
 
     private void gravCalc() {
