@@ -12,6 +12,7 @@ public class Player extends Entity{
     public boolean isJumping;
     public boolean isFalling;
     public double oldTime = System.currentTimeMillis();
+
     public Player(int x1, int y1, int width, int height, String imgName) throws SlickException
     {
         x = x1;
@@ -36,9 +37,10 @@ public class Player extends Entity{
             this.isFalling = true;
         }
         // basic floor
-        if (this.y > 200) {
-            this.y = 200;
+        if (this.hitbox.intersects(Play.floor.hitbox)) {
+            this.y = 210;
             this.yv = 0.0;
+            this.hitbox.y = 210;
             this.isJumping = false;
             this.isFalling = false;
         }

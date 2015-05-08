@@ -8,14 +8,15 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Play extends BasicGameState {
     public Player p1;
     public Player p2;
+    public static Solid floor = new Solid(0,300, 800, 600);
     public Play() {
  
     }
  
     public void init(GameContainer gc, StateBasedGame sbg)
             throws SlickException {
-        p1 = new Player(600, 200, 22, 44, "img/char1.png");
-        p2 = new Player(180, 200, 22, 44, "img/char2.png");
+        p1 = new Player(600, 210, 22, 44, "img/char1.png");
+        p2 = new Player(180, 210, 22, 44, "img/char2.png");
     }
  
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
