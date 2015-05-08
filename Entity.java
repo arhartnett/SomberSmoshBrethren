@@ -5,6 +5,9 @@ public class Entity {
     public double yv;
     public int h;
     public int w;
+    public double oldTime;
+    public double newTime;
+    public double deltaT;
     public String img;
     
     
@@ -17,9 +20,15 @@ public class Entity {
     }
 
     public void move() {
-        this.x += this.xv;
-        this.y += this.yv;
+        this.x += this.xv*deltaT;
+        this.y += this.yv*deltaT;
     }
+    
+    public void update() {
+        
+        
+    }
+    
     public String toString() {
      return ("(" + x + ", " + y + ")");
     }

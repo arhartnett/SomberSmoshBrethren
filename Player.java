@@ -4,20 +4,21 @@ import org.newdawn.slick.SlickException;
 import java.awt.*;
 
 public class Player extends Entity{
-    public static final double GRAVITY = 2.0;
+    public static final double GRAVITY = 0.7;
     public Image sprite;
     public Rectangle hitbox;
     public double speed;
     public double jumpSpeed;
     public boolean isJumping;
     public boolean isFalling;
+    public double oldTime = System.currentTimeMillis();
     public Player(int x1, int y1, String imgName) throws SlickException
     {
         x = x1;
         y = y1;
         img = imgName;
         speed = 5.0;
-        jumpSpeed = 20.0;
+        jumpSpeed = 10.0;
         isJumping = false; isFalling = false;
         
         sprite = new Image(img);
@@ -28,9 +29,9 @@ public class Player extends Entity{
 
     private void gravCalc() {
         if (this.isFalling || this.isJumping) {
-            this.yv += GRAVITY;
+            this.yv -= GRAVITY;
         }
-        if (isJumping && this.yv <= 0) {
+        if (isJumping && this.yv >= 0) {
             this.isJumping = false;
             this.isFalling = true;
         }
@@ -44,17 +45,31 @@ public class Player extends Entity{
     }
     public void jump() {
         if (!this.isFalling) {
-            this.yv -= this.jumpSpeed;
+            this.yv += this.jumpSpeed;
             this.isJumping = true;
         }
     }
     // also updates hitbox position
     public void movePlayer() {
         this.gravCalc();
-        this.hitbox.x += this.xv;
-        this.hitbox.y += this.yv;
+        deltaT = (newTime - oldTime)/500000000000.0;
+        this.hitbox.x -= this.xv*deltaT;
+        this.hitbox.y += this.yv*deltaT;
         this.move();
     }
+    public void move() {
+        this.x -= this.xv*deltaT;
+        this.y += this.yv*deltaT;
+    }
+    
+    public void update(){
+        newTime = System.currentTimeMillis();
+        movePlayer();
+        oldTime = newTime;
+        
+        
+    }
+    
     /*
       * returns 1 if other player hits from left, 2 if from right, 3 if from
       * top, 4 if from the bottom. Vertical/ horizontal distinction is based
