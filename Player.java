@@ -1,28 +1,45 @@
+import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 import java.awt.*;
 
 public class Player extends Entity{
     public static final double GRAVITY = 0.7;
+    public SpriteSheet sheet;
     public Image sprite;
+    public org.newdawn.slick.Animation walkLeft;
+    public org.newdawn.slick.Animation walkRight;
     public Rectangle hitbox;
-    public double speed;
-    public double jumpSpeed;
+    private double speed;
+    private double jumpSpeed;
+    private int animationSpeed;
+    private int state;
     public boolean isJumping;
     public boolean isFalling;
     public double oldTime = System.currentTimeMillis();
 
     public Player(int x1, int y1, int width, int height, String imgName) throws SlickException
     {
+        state = 0;
         x = x1;
         y = y1;
-        img = imgName;
+        sheet = new SpriteSheet(imgName, 48, 48);
+        sprite = sheet.getSprite(0, 0).getScaledCopy(3);
+        walkLeft = new org.newdawn.slick.Animation();
+        walkRight = new org.newdawn.slick.Animation();
+        animationSpeed = 250;
+        for(int col = 2; col <= 4; col ++){
+            walkRight.addFrame(sheet.getSprite(col, 0).getScaledCopy(3), animationSpeed);
+        }
+        walkRight.addFrame(sheet.getSprite(3,0).getScaledCopy(3), animationSpeed);
+        for(int col = 2; col <= 4; col ++){
+            walkLeft.addFrame(sheet.getSprite(col, 1).getScaledCopy(3), animationSpeed);
+        }
+        walkLeft.addFrame(sheet.getSprite(3, 1).getScaledCopy(3), animationSpeed);
         speed = 5.0;
         jumpSpeed = 10.0;
         isJumping = false; isFalling = false;
-        
-        sprite = new Image(img);
+
         w = width;
         h = height;
         hitbox = new Rectangle((x + (w/2)), (y + (y-h)), w, h);
@@ -49,6 +66,24 @@ public class Player extends Entity{
         if (!this.isFalling) {
             this.yv += this.jumpSpeed;
             this.isJumping = true;
+        }
+    }
+    public void control(GameContainer gc) {
+        if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+            this.xv = -1 * this.speed;
+            this.state = 1;
+        }
+        else if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+            this.xv = this.speed;
+            this.state = 2;
+        }
+        else {
+            this.xv = 0;
+            this.state = 0;
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_UP)) {
+            this.jump();
+            this.state = 3;
         }
     }
     // also updates hitbox position
@@ -127,6 +162,10 @@ public class Player extends Entity{
     
     public void drawThis()
     {
-        sprite.draw(x, y);
+        if (this.state == 0) this.sprite.draw(x, y);
+        else if (this.state == 1) this.walkLeft.draw(x, y);
+        else if (this.state == 2) this.walkRight.draw(x, y);
+        else this.sprite.draw(x, y);
+
     }
 }
