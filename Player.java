@@ -68,14 +68,16 @@ public class Player extends Entity{
             this.isJumping = true;
         }
     }
-    public void control(GameContainer gc) {
+    public void control(GameContainer gc, int delta) {
         if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             this.xv = -1 * this.speed;
             this.state = 1;
+            this.walkLeft.update(delta);
         }
         else if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
             this.xv = this.speed;
             this.state = 2;
+            this.walkRight.update(delta);
         }
         else {
             this.xv = 0;
@@ -85,14 +87,15 @@ public class Player extends Entity{
             this.jump();
             this.state = 3;
         }
+        this.movePlayer();
     }
     // also updates hitbox position
     public void movePlayer() {
-        this.gravCalc();
         deltaT = (newTime - oldTime)/500000000000.0;
         this.hitbox.x -= this.xv*deltaT;
         this.hitbox.y += this.yv*deltaT;
         this.move();
+        this.gravCalc();
     }
     public void move() {
         this.x -= this.xv*deltaT;

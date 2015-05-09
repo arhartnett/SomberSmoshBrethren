@@ -25,8 +25,7 @@ public class Play extends BasicGameState {
  
     public void update(GameContainer gc, StateBasedGame sbg, int delta)
             throws SlickException {
-        p1.walkLeft.update(delta);
-        p1.control(gc);
+        p1.control(gc, delta);
         /*if (gc.getInput().isKeyDown(Input.KEY_A)) {
             p2.xv = -1 * p2.speed;
         }
@@ -37,10 +36,8 @@ public class Play extends BasicGameState {
         if (gc.getInput().isKeyDown(Input.KEY_W)) {
             p2.jump();
         }*/
-        p1.movePlayer();
         //p2.movePlayer();
         //p1.adjustTo(p2);
-        // TODO: Some sort of controls would go here
     }
  
     public int getID() {
