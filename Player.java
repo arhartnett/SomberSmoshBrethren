@@ -17,12 +17,14 @@ public class Player extends Entity{
     public boolean isJumping;
     public boolean isFalling;
     public double oldTime = System.currentTimeMillis();
+    int[] controls;
 
-    public Player(int x1, int y1, int width, int height, String imgName) throws SlickException
+    public Player(int x1, int y1, int width, int height, String imgName, int[] givenControls) throws SlickException
     {
         state = 0;
         x = x1;
         y = y1;
+        controls = givenControls;
         sheet = new SpriteSheet(imgName, 48, 48);
         sprite = sheet.getSprite(0, 0).getScaledCopy(3);
         walkLeft = new org.newdawn.slick.Animation();
@@ -69,12 +71,12 @@ public class Player extends Entity{
         }
     }
     public void control(GameContainer gc, int delta) {
-        if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+        if (gc.getInput().isKeyDown(this.controls[1])) {
             this.xv = -1 * this.speed;
             this.state = 1;
             this.walkLeft.update(delta);
         }
-        else if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+        else if (gc.getInput().isKeyDown(this.controls[2])) {
             this.xv = this.speed;
             this.state = 2;
             this.walkRight.update(delta);
@@ -83,7 +85,7 @@ public class Player extends Entity{
             this.xv = 0;
             this.state = 0;
         }
-        if (gc.getInput().isKeyDown(Input.KEY_UP)) {
+        if (gc.getInput().isKeyDown(this.controls[0])) {
             this.jump();
             this.state = 3;
         }
