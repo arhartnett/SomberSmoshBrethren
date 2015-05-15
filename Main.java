@@ -5,8 +5,8 @@ public class Main extends StateBasedGame{
    
    public static final String gamename = "Somber Smosh Brethren";
    public static final int play = 0;
-   public static final int xSize = 800;
-   public static final int ySize = 600;
+   public static final int xSize = 1280;
+   public static final int ySize = 720;
    public static final int frameRate = 60;
    
    public Main(String gamename){

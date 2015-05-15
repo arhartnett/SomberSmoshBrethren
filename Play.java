@@ -7,22 +7,24 @@ public class Play extends BasicGameState {
     public Player p2;
     public static final int[] ARROWS = {Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT};
     public static final int[] WAD = {Input.KEY_W, Input.KEY_A, Input.KEY_D};
-    public static Solid floor = new Solid(0,300, 800, 600);
+    public static Solid floor;
     public Play() {
  
     }
  
     public void init(GameContainer gc, StateBasedGame sbg)
             throws SlickException {
-        p1 = new Player(600, 210, 22, 44, "img/char1sprite.png", ARROWS);
-        p2 = new Player(180, 210, 22, 44, "img/char2sprite.png", WAD);
+        floor = new Solid(50, gc.getHeight() - 200, gc.getWidth()-100, gc.getHeight());
+        p1 = new Player(600, 210, 66, 132, "img/char1sprite.png", ARROWS);
+        p2 = new Player(180, 210, 66, 132, "img/char2sprite.png", WAD);
     }
  
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
             throws SlickException {
+        g.setColor(Color.white);
+        g.fillRect(50, gc.getHeight() - 200, gc.getWidth()-100, gc.getHeight());
         p1.drawThis();
         p2.drawThis();
- 
     }
  
     public void update(GameContainer gc, StateBasedGame sbg, int delta)

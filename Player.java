@@ -12,7 +12,6 @@ public class Player extends Entity{
     public Rectangle hitbox;
     private double speed;
     private double jumpSpeed;
-    private int animationSpeed;
     private int state;
     public boolean isJumping;
     public boolean isFalling;
@@ -29,7 +28,7 @@ public class Player extends Entity{
         sprite = sheet.getSprite(0, 0).getScaledCopy(3);
         walkLeft = new org.newdawn.slick.Animation();
         walkRight = new org.newdawn.slick.Animation();
-        animationSpeed = 250;
+        int animationSpeed = 250;
         for(int col = 2; col <= 4; col ++){
             walkRight.addFrame(sheet.getSprite(col, 0).getScaledCopy(3), animationSpeed);
         }
@@ -38,9 +37,9 @@ public class Player extends Entity{
             walkLeft.addFrame(sheet.getSprite(col, 1).getScaledCopy(3), animationSpeed);
         }
         walkLeft.addFrame(sheet.getSprite(3, 1).getScaledCopy(3), animationSpeed);
-        speed = 5.0;
+        speed = 3.0;
         jumpSpeed = 10.0;
-        isJumping = false; isFalling = false;
+        isJumping = false; isFalling = true;
 
         w = width;
         h = height;
@@ -57,9 +56,9 @@ public class Player extends Entity{
         }
         // basic floor
         if (this.hitbox.intersects(Play.floor.hitbox)) {
-            this.y = 210;
+            this.y = Play.floor.y - this.h;
             this.yv = 0.0;
-            this.hitbox.y = 210;
+            this.hitbox.y = Play.floor.y - this.h;
             this.isJumping = false;
             this.isFalling = false;
         }
