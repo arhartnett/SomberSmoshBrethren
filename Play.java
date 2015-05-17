@@ -8,6 +8,9 @@ public class Play extends BasicGameState {
     public static final int[] ARROWS = {Input.KEY_UP, Input.KEY_LEFT, Input.KEY_RIGHT};
     public static final int[] WAD = {Input.KEY_W, Input.KEY_A, Input.KEY_D};
     public static Solid floor;
+    private static double oldTime = System.currentTimeMillis()/1000.0;
+    private static double newTime;
+    public static double deltaT;
     public Play() {
  
     }
@@ -29,6 +32,9 @@ public class Play extends BasicGameState {
  
     public void update(GameContainer gc, StateBasedGame sbg, int delta)
             throws SlickException {
+        newTime = System.currentTimeMillis()/1000.0;
+        deltaT = (newTime - oldTime);
+        oldTime = newTime;
         p1.control(gc, delta);
         p2.control(gc, delta);
     }

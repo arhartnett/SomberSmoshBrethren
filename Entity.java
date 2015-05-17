@@ -1,8 +1,8 @@
 public class Entity {
     public int x;
     public int y;
-    public double xv;
-    public double yv;
+    public double xv = 0.0;
+    public double yv = 0.0;
     public int h;
     public int w;
     public double oldTime;

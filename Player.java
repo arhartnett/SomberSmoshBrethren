@@ -4,7 +4,7 @@ import org.newdawn.slick.Image;
 import java.awt.*;
 
 public class Player extends Entity{
-    public static final double GRAVITY = 0.7;
+    public static final double GRAVITY = 30.0*70.0;
     public SpriteSheet sheet;
     public Image sprite;
     public org.newdawn.slick.Animation walkLeft;
@@ -15,7 +15,8 @@ public class Player extends Entity{
     private int state;
     public boolean isJumping;
     public boolean isFalling;
-    public double oldTime = System.currentTimeMillis();
+    public static final double pixRatio = 70.0;
+   // public double oldTime = System.currentTimeMillis();
     int[] controls;
 
     public Player(int x1, int y1, int width, int height, String imgName, int[] givenControls) throws SlickException
@@ -37,8 +38,8 @@ public class Player extends Entity{
             walkLeft.addFrame(sheet.getSprite(col, 1).getScaledCopy(3), animationSpeed);
         }
         walkLeft.addFrame(sheet.getSprite(3, 1).getScaledCopy(3), animationSpeed);
-        speed = 3.0;
-        jumpSpeed = 10.0;
+        speed = 5.0*pixRatio;
+        jumpSpeed = -12.0*pixRatio;
         isJumping = false; isFalling = true;
 
         w = width;
@@ -48,24 +49,24 @@ public class Player extends Entity{
 
     private void gravCalc() {
         if (this.isFalling || this.isJumping) {
-            this.yv -= GRAVITY;
+            this.yv += GRAVITY*Play.deltaT;
         }
-        if (isJumping && this.yv >= 0) {
+        if (isJumping && this.yv <= 0) {
             this.isJumping = false;
             this.isFalling = true;
         }
         // basic floor
         if (this.hitbox.intersects(Play.floor.hitbox)) {
-            this.y = Play.floor.y - this.h;
+            this.y = Play.floor.y - (this.h+20);
             this.yv = 0.0;
-            this.hitbox.y = Play.floor.y - this.h;
+            this.hitbox.y = Play.floor.y - (this.h+20);
             this.isJumping = false;
             this.isFalling = false;
         }
     }
     public void jump() {
         if (!this.isFalling) {
-            this.yv += this.jumpSpeed;
+            this.yv = this.jumpSpeed;
             this.isJumping = true;
         }
     }
@@ -92,21 +93,22 @@ public class Player extends Entity{
     }
     // also updates hitbox position
     public void movePlayer() {
-        deltaT = (newTime - oldTime)/500000000000.0;
-        this.hitbox.x -= this.xv*deltaT;
-        this.hitbox.y += this.yv*deltaT;
+        
+       // System.out.println(Play.deltaT);
+        this.hitbox.x += this.xv*Play.deltaT;
+        this.hitbox.y += this.yv*Play.deltaT;
         this.move();
         this.gravCalc();
     }
     public void move() {
-        this.x -= this.xv*deltaT;
-        this.y += this.yv*deltaT;
+        this.x += this.xv*Play.deltaT;
+        this.y += this.yv*Play.deltaT;
     }
     
     public void update(){
-        newTime = System.currentTimeMillis();
+
         movePlayer();
-        oldTime = newTime;
+        
         
         
     }

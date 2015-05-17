@@ -8,6 +8,7 @@ public class Main extends StateBasedGame{
    public static final int xSize = 1280;
    public static final int ySize = 720;
    public static final int frameRate = 60;
+   public static final double pixRatio = 70.0;
    
    public Main(String gamename){
       super(gamename);
