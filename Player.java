@@ -9,7 +9,6 @@ public class Player extends Entity{
     public Image sprite;
     public org.newdawn.slick.Animation walkLeft;
     public org.newdawn.slick.Animation walkRight;
-    public Rectangle hitbox;
     private double speed;
     private double jumpSpeed;
     private int state;
@@ -93,8 +92,6 @@ public class Player extends Entity{
     }
     // also updates hitbox position
     public void movePlayer() {
-        
-       // System.out.println(Play.deltaT);
         this.hitbox.x += this.xv*Play.deltaT;
         this.hitbox.y += this.yv*Play.deltaT;
         this.move();
